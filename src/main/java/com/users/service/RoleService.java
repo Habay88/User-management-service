@@ -64,8 +64,13 @@ public class RoleService implements IRoleService {
 
     @Override
     public Users assignUserToRole(Long userId, long roleId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'assignUserToRole'");
+        Optional<Users> user = userRepository.findById(userId);
+        Optional<Roles> role = roleRepository.findById(roleId);
+        if(user.isPresent() && user.get().getRoles().contains(role.get())){
+            throw new UserAlreadyExistsException(
+                user.get().getFirstName()+ " is already assigned to the " + role.get().getName() + "role"
+            )
+        }
     }
 
     @Override
