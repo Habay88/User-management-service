@@ -1,0 +1,77 @@
+package com.users.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.users.com.users.exception.RoleAlreadyExistException;
+import com.users.com.users.exception.UserNotFoundException;
+import com.users.entity.Roles;
+import com.users.entity.Users;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class RoleService implements IRoleService {
+
+    private final RoleRepository roleRepository;
+    private final UserRepository userRepository;
+
+    @Override
+    public List<Roles> getAllRoles() {
+
+        return roleRepository.findAll();
+    }
+
+    @Override
+    public Roles createRole(Roles theRole) {
+        Optional<Roles> checkRole = roleRepository.findByName(theRole.getName());
+        if (checkRole.isPresent()) {
+            throw new RoleAlreadyExistException(checkRole.get().getName() + "role already exist");
+        }
+        return roleRepository.save(theRole);
+    }
+
+    @Override
+    public void deleteRole(Long roleId) {
+        this.removeAllUserFromRole(roleId);
+        roleRepository.deleteById(roleId);
+    }
+
+    @Override
+    public Roles findByName(String name) {
+        return roleRepository.findByName(name).get();
+    }
+
+    @Override
+    public Roles findById(Long roleId) {
+        return roleRepository.findById(roleId).get();
+    }
+
+    @Override
+    public Users removeUserFromRole(Long userId, Long roleId) {
+        Optional<Users> user = userRepository.findById(userId);
+        Optional<Roles> role = roleRepository.findById(roleId);
+        if (role.isPresent() && role.get().getUsers().contains(user.get())) {
+            role.get().removeUserFromRole(user.get());
+            roleRepository.save(role.get());
+            return user.get();
+        }
+        throw new UserNotFoundException("User not found");
+    }
+
+    @Override
+    public Users assignUserToRole(Long userId, long roleId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'assignUserToRole'");
+    }
+
+    @Override
+    public Roles removeAllUserFromRole(Long roleId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'removeAllUserFromRole'");
+    }
+
+}
