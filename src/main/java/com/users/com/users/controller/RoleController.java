@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import static org.springframework.http.HttpStatus.FOUND;
 import static org.springframework.http.HttpStatus.CREATED;;
 
+// OPEN API DIRECTORY   : http://localhost:8083/swagger-ui/index.html 
 @RestController
 @RequestMapping("/roles")
 @RequiredArgsConstructor
