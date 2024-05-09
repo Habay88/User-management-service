@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.users.com.users.service.UserRecord;
-import com.users.com.users.service.UserService;
 import com.users.entity.Users;
+import com.users.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
