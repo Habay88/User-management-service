@@ -6,7 +6,9 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.users.com.users.exception.RoleAlreadyExistException;
+import com.users.com.users.exception.UserAlreadyExistsException;
 import com.users.com.users.exception.UserNotFoundException;
+
 import com.users.entity.Roles;
 import com.users.entity.Users;
 
@@ -66,17 +68,20 @@ public class RoleService implements IRoleService {
     public Users assignUserToRole(Long userId, long roleId) {
         Optional<Users> user = userRepository.findById(userId);
         Optional<Roles> role = roleRepository.findById(roleId);
-        if(user.isPresent() && user.get().getRoles().contains(role.get())){
+        if (user.isPresent() && user.get().getRoles().contains(role.get())) {
             throw new UserAlreadyExistsException(
-                user.get().getFirstName()+ " is already assigned to the " + role.get().getName() + "role"
-            )
+                    user.get().getFirstName() + " is already assigned to the " + role.get().getName() + "role");
         }
+        role.ifPresent(theRole -> theRole.assignUserToRole(user.get()));
+        roleRepository.save(role.get());
+        return user.get();
     }
 
     @Override
     public Roles removeAllUserFromRole(Long roleId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeAllUserFromRole'");
+        Optional<Roles> role = roleRepository.findById(roleId);
+        role.ifPresent(Roles::removeAllUsersFromRole);
+        return roleRepository.save(role.get());
     }
 
 }
