@@ -1,4 +1,4 @@
-package com.users.service;
+package com.users.com.users.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,9 +8,10 @@ import org.springframework.stereotype.Service;
 import com.users.com.users.exception.RoleAlreadyExistException;
 import com.users.com.users.exception.UserAlreadyExistsException;
 import com.users.com.users.exception.UserNotFoundException;
-
 import com.users.entity.Roles;
 import com.users.entity.Users;
+import com.users.service.RoleRepository;
+import com.users.service.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
