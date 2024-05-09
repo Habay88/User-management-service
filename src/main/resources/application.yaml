@@ -12,4 +12,4 @@ spring:
     hibernate:
       ddl-auto: update
   application:
-    name: ORDER-SERVICE
+    name: USER MANAGEMENT-SERVICE
