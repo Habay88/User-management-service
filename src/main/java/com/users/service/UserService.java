@@ -9,12 +9,13 @@ import java.util.stream.Collectors;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.users.com.users.exception.UserAlreadyExistsException;
-import com.users.com.users.exception.UserNotFoundException;
 import com.users.com.users.service.IUserService;
 import com.users.com.users.service.UserRecord;
 import com.users.entity.Roles;
 import com.users.entity.Users;
+import com.users.exception.UserAlreadyExistsException;
+import com.users.exception.UserNotFoundException;
+import com.users.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

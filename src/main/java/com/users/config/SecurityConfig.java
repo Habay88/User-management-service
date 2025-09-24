@@ -1,9 +1,13 @@
-package com.users.com.users;
+package com.users.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
     @Bean

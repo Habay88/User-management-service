@@ -1,4 +1,4 @@
-package com.users.com.users.controller;
+package com.users.controller;
 
 import java.util.List;
 
